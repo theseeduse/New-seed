@@ -1,32 +1,17 @@
 router.get(/^\/License$/, async(req, res) => {
-	var licepage = `
-		<p>imitated-seed</p>
-		<p>(the seed v${version.major}.${version.minor}.${version.revision})</p>
-	`;
+	var licepage = `<h2>New seed v2.0.0</h2>
+                        <h3>The seed (v${version.major}.${version.minor}.${version.revision})</h3>
+                        <ul class=wiki-list>
+			        <li></li>
+	                </ul>`;
 	
-	if(hostconfig.replicate_theseed_license) {
-		licepage = '';
-		if(ver('4.11.1')) {
-			licepage += `<h2>the seed</h2><p>v${version.major}.${version.minor}.${version.revision}</p>`;
-		} else {
-			licepage += `<h2>the seed (v${version.major}.${version.minor}.${version.revision})</h2>`;
-		}
-		licepage += `
-			<p>Copyright <a href="https://theseed.io/">theseed.io</a> all rights reserved.</p>
+	        licepage += `
+			<p>Copyright <a href="https://newseed.xyz/">newseed.xyz</a> all rights reserved.</p>
 			
 			<h3>Contributors</h3>
 			<ul class=wiki-list>
-				${
-					ver('4.13.0') ? `
-						<li>namu@theseed.io (backend & frontend)</li>
-						<li>PPPP@theseed.io (old frontend)</li>
-						<li>kasio@theseed.io (old render)</li>
-					` : `
-						<li>namu@theseed.io (backend)</li>
-						<li>PPPP@theseed.io (frontend)</li>
-						<li>kasio@theseed.io (old render)</li>
-					`
-				}
+				<li><a href="http://github.com/theseeduse">takanasi@newseed.xyz</a> (backend & frontend)</li>
+				<li><a href="http://github.com/gdl-blue">gdl-blue</a> (Base)</li>
 			</ul>
 			
 			<h3>Open source license</h3>
@@ -42,7 +27,6 @@ router.get(/^\/License$/, async(req, res) => {
 					Swig is licensed under the <a rel="license" href="https://github.com/paularmstrong/swig/blob/master/LICENSE">MIT license</a>.
 				</li>
 				
-				${ver('4.13.0') ? `
 					<li><pre>/*!
  * nano-assign v1.0.1
  * (c) 2018-present egoist &lt;0x142857@gmail.com&gt;
@@ -122,10 +106,8 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 </pre></li>
-				` : ''}
 			</ul>
 		`;
-	}
 	
 	if(!ver('4.13.0')) {
 		licepage += await readFile('./skins/' + getSkin(req) + '/license.html')
