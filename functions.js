@@ -903,23 +903,19 @@ const aclperms = {
 	member: '로그인된 사용자',
 	admin: '관리자',
 	member_signup_15days_ago: '가입한지 15일 지난 사용자',
-	suspend_account: (ver('4.18.0') ? undefined : '차단된 사용자'),
-	blocked_ipacl: (ver('4.18.0') ? undefined : '차단된 아이피'),
 	document_contributor: '해당 문서 기여자',
-	contributor: (ver('4.7.0') ? '위키 기여자' : undefined),
-	match_username_and_document_title: (ver('4.5.9') ? '문서 제목과 사용자 이름이 일치' : undefined),
-	ip: (ver('4.20.0') ? '아이피' : undefined),
+	match_username_and_document_title: '문서 제목과 사용자 이름이 일치'
 };
 
 // 차단된 사용자 제외 ACL 권한
 const exaclperms = [
-	'member', 'member_signup_15days_ago', 'document_contributor', 'contributor',
+	'member', 'member_signup_15days_ago', 'document_contributor', 'any',
 ];
 
 // 오류메시지
 function fetchErrorString(code, ...params) {
 	const codes = {
-		permission: ver('4.0.18') ? '권한이 부족합니다.' : '관리자 권한입니다.',
+		permission: '권한이 부족합니다.',
 		permission_read: '읽기 권한이 부족합니다.',
 		permission_edit: '편집 권한이 부족합니다.',
 		permission_move: '이동 권한이 부족합니다.',
@@ -945,6 +941,8 @@ function fetchErrorString(code, ...params) {
 		username_format: '사용자 이름을 형식에 맞게 입력해주세요.',
 		invalid_title: '문서 이름이 올바르지 않습니다.',
 		captcha_validation_failed: 'reCAPTCHA 인증에 실패했습니다.',
+		your_ip_is_ipv6: '당신의 아이피는 IPv6 형식으로 확인되었습니다.\n저희 위키는 현재 IPv4만을 지원중에 있습니다. 죄송합니다.',
+		/* fuck_you_spoofing: '스푸핑 하면 재밌냐 새꺄?', */
 	};
 	
 	return codes[code] || code;
@@ -954,8 +952,8 @@ function fetchValue(code) {
 	const codes = {
 		username: '사용자 이름',
 		ip: 'IP 주소',
-		password: ver('4.18.6') ? '비밀번호' : '암호',
-		password_check: ver('4.18.6') ? '비밀번호 확인' : '암호 확인',
+		password: '비밀번호',
+		password_check: '비밀번호 확인'
 	};
 	
 	return codes[code] || code;
@@ -973,8 +971,8 @@ function alertBalloon(content, type = 'danger', dismissible = true, classes = ''
 				noh ? '' : ({
 					none: '',
 					danger: '[오류!]',
-					warning: '',
-					info: '',
+					warning: '[주의]',
+					info: '[안내]',
 					success: '[경고!]'
 				}[type])
 			}</strong> ${content + ''}
@@ -983,7 +981,7 @@ function alertBalloon(content, type = 'danger', dismissible = true, classes = ''
 
 // 이름공간 목록
 function fetchNamespaces() {
-	return ['문서', '틀', '분류', '파일', '사용자', '특수기능', config.getString('wiki.site_name', '더 시드'), '토론', '휴지통', '투표'].concat(hostconfig.custom_namespaces || []);
+	return ['문서', '틀', '분류', '파일', '사용자', '임시조치', config.getString('wiki.site_name', '뉴시드위키'), '토론휴지통', '휴지통', '파일휴지통'].concat(hostconfig.custom_namespaces || []);
 }
 
 function err(type, obj) {
@@ -1013,7 +1011,7 @@ function err(type, obj) {
 
 // 오류화면 표시
 async function showError(req, code, ...params) {
-	return await render(req, ver('4.13.0') ? '오류' : '문제가 발생했습니다!', `${ver('4.13.0') ? '<div>' : '<h2>'}${typeof code == 'object' ? (code.msg || fetchErrorString(code.code, code.tag)) : fetchErrorString(code, ...params)}${ver('4.13.0') ? '</div>' : '</h2>'}`, {}, _, _, 'error');
+	return await render(req, '오류' `${ver('4.13.0') ? '<div>' : '<h2>'}${typeof code == 'object' ? (code.msg || fetchErrorString(code.code, code.tag)) : fetchErrorString(code, ...params)}${ver('4.13.0') ? '</div>' : '</h2>'}`, {}, _, _, 'error');
 }
 
 // 닉네임/아이피 파싱
