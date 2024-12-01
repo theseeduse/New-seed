@@ -96,25 +96,14 @@ const whattr = {
 
 // 사용자 권한
 var perms = [
-	'hide_document_history_log', 'delete_thread', 'admin', 'editable_other_user_document', 'suspend_account', 'ipacl', 
+	'hide_document_history_log', 'delete_thread', 'admin', 'verfied', 'Super_admin', 'owner'
 	'update_thread_status', 'acl', 'nsacl', 'hide_thread_comment', 'grant', 'no_force_recaptcha', 
 	'disable_two_factor_login', 'login_history', 'update_thread_document', 'update_thread_topic', 
 	'aclgroup', 'api_access', 
 ];
 var disable_autoperms = ['disable_two_factor_login'];
 
-if(ver('4.18.0')) perms.remove('ipacl'), perms.remove('suspend_account');
-else perms.remove('aclgroup');
-if(ver('4.2.0')) perms.remove('acl');
-if(!ver('4.20.0')) perms.remove('api_access');
-if(!ver('4.4.1')) perms.remove('disable_two_factor_login');
-if(!ver('4.4.2')) perms.remove('login_history');
-if(!ver('4.22.4')) perms.remove('hide_document_history_log');
-if(ver('4.18.0')) perms.remove('editable_other_user_document');
-if(!ver('4.4.3')) { perms.remove('update_thread_document'); perms.remove('update_thread_topic'); }
-if(!ver('4.0.20')) perms.push('developer', 'tribune', 'arbiter');
-if(hostconfig.debug) perms.push('debug');
-
+if(hostconfig.not_verfied == true) { perms.remove('verfied'); };
 // 삐
 function beep(cnt = 1) { // 경고음 재생
 	for(var i=1; i<=cnt; i++)
@@ -904,7 +893,11 @@ const aclperms = {
 	admin: '관리자',
 	member_signup_15days_ago: '가입한지 15일 지난 사용자',
 	document_contributor: '해당 문서 기여자',
-	match_username_and_document_title: '문서 제목과 사용자 이름이 일치'
+	match_username_and_document_title: '문서 제목과 사용자 이름이 일치',
+	suspend_account: (ver('4.18.0') ? undefined : '차단된 사용자'),
+	blocked_ipacl: (ver('4.18.0') ? undefined : '차단된 아이피'),
+	ip: (ver('4.20.0') ? '아이피' : undefined),
+	contributor: (ver('4.7.0') ? '위키 기여자' : undefined)
 };
 
 // 차단된 사용자 제외 ACL 권한
