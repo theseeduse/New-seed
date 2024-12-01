@@ -9,14 +9,14 @@
 
 이 엔진이 정상 작동하는 것으로 확인된 Node.js 버전은 8.6.0, 12.16.2, 12.18.1, 16.6.2이다. 만약 혹시나 Windows XP/Vista에서 실행이 필요한 경우 [이것](https://github.com/hlizard/node8-xp/raw/v8.6.0-xp/Release/Release.zip)을 사용할 것.
 
-테스트 서버:
-- [내 서버](https://go2021.glitch.me) - the seed 4.11.2
-- ~~[test님의 서버](https://seore.org) - the seed 4.20.0, Nuxt.js로 포팅됨~~
-- [테스트위키](https://testwiki.kr) - the seed 4.22.9
+사용 서버:
+- [베타위키](https://beta.newseed.xyz) - the seed 4.25.2, New seed 2.0.0
+- [뉴시드위키](https://newseed.xyz) - the seed 4.25.0, New seed 2.0.1
+- [우주위키](https://space.newseed.xyz) - the seed 4.25.2, New seed 2.0.0
 
-나무픽스와 거의 호환된다.
+나무픽스 호환 안 됨.
 
-Pull Request 시 서버 코드에는 `?.`, `??`, `import` 등의 신문법, 프론트엔드 자바스크립트에는 ES6 이상 문법을 사용하지 말 것.
+~~Pull Request 시 서버 코드에는 `?.`, `??`, `import` 등의 신문법, 프론트엔드 자바스크립트에는 ES6 이상 문법을 사용하지 말 것.~~ 본 코드는 es5를 기반으로 제작된 코드임. 만약 es6 컨버팅에 관한 pull request의 경우 es6-porting에 pr을 하길 바람.
 
 파서 함수 이름이 마크다운인 이유는 개발 초기에는 마크다운을 사용했기 때문이다.
 
@@ -32,8 +32,10 @@ Pull Request 시 서버 코드에는 `?.`, `??`, `import` 등의 신문법, 프�
 
 ## 이메일 설정법 [Gmail]
 - 먼저 "자신사이트주소/admin/config" 에 접속해 `사이트 주소`란에 자신의 사이트주소를 입력한다.
-- config.json 파일을 열고 `"disable_email":"true"`를 제거한다.
-- `"mailhost":"smtp.gmail.com","email":"인증메일을 보낼 Gmail 주소","passwd":"구글 앱 비밀번호"`를 추가한다.
+- config.json 파일을 열고 `"disable_email":"true"`를 제거한다
+-`"mailhost":"smtp.gmail.com","email":"인증메일을 보낼 Gmail 주소","passwd":"구글 앱 비밀번호"`
+를 추가한다.
+"mailhost":"smtp.gmail.com","email":"인증메일을 보낼 Gmail 주소","passwd":"구글 앱 비밀번호"`를 추가한다.
 - [[구글 앱 비밀번호 설정링크]](https://myaccount.google.com/apppasswords)
 - 타사메일의 경우 smtp.gmail.com을 타사메일의 smtp주소로 변경해야함.
 
